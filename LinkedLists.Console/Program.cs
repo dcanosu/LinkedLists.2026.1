@@ -70,11 +70,11 @@ do
             value = Console.ReadLine() ?? string.Empty;
             list.Remove(value);
             break;
-        // case "9":
-        //     Console.Write("Enter a value: ");
-        //     value = Console.ReadLine() ?? string.Empty;
-        //     list.RemoveAll(value);
-        //     break;
+        case "9":
+            Console.Write("Enter a value: ");
+            value = Console.ReadLine() ?? string.Empty;
+            list.RemoveAll(value);
+            break;
         case "0":
             Console.WriteLine("Exiting...");
             break;

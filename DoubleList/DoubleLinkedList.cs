@@ -15,7 +15,16 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
 
     public bool Contains(T data)
     {
-        throw new NotImplementedException();
+        Node<T>? current = _head;
+        while (current != null)        
+        {
+            if (current.Data!.Equals(data))
+            {
+                return true;
+            }
+            current = current.Next;
+        }
+        return false;
     }
 
     public void InsertAtBeginning(T data)
@@ -123,7 +132,19 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
 
     public void RemoveAll(T data)
     {
-        throw new NotImplementedException();
+        Node<T>? current = _head;
+        while (current != null)
+        {
+            Node<T>? nextNode = current.Next;
+            if (current.Data!.Equals(data))
+            {
+                if (current.Previous != null) current.Previous.Next = current.Next;
+                if (current.Next != null) current.Next.Previous = current.Previous;
+                if (current == _head) _head = current.Next;
+                if (current == _tail) _tail = current.Previous;
+            }
+            current = nextNode;
+        }
     }
 
     public void Reverse()
