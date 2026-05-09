@@ -2,7 +2,7 @@
 
 namespace DoubleList;
 
-public class DoubleLinkedList<T> : ILinkedList<T>
+public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
 {
     private Node<T>? _head;
     private Node<T>? _tail;
@@ -33,7 +33,6 @@ public class DoubleLinkedList<T> : ILinkedList<T>
             _head = newNode;
         }
     }
-
     public void InsertAtEnding(T data)
     {
         var newNode = new Node<T>(data);
@@ -52,7 +51,46 @@ public class DoubleLinkedList<T> : ILinkedList<T>
 
     public void InsertOrdered(T data)
     {
-        throw new NotImplementedException();
+        var newNode = new Node<T>(data);
+        if (_head == null)
+        {
+            _head = newNode;
+            _tail = newNode;
+            return;
+        }
+
+        
+        if (data.CompareTo(_head.Data) < 0) 
+        {
+            newNode.Next = _head;
+            _head.Previous = newNode;
+            _head = newNode;
+            return;
+        }
+
+        // Insert at the end
+        if (data.CompareTo(_tail!.Data) > 0)
+        {
+            _tail.Next = newNode;
+            newNode.Previous = _tail;
+            _tail = newNode;
+            return;
+        }
+
+        // Insert in the middle
+        var current = _head;
+        while (current != null)
+        {
+            if (data.CompareTo(current.Data) < 0)
+            {
+                newNode.Next = current;
+                newNode.Previous = current.Previous;
+                current.Previous!.Next = newNode;
+                current.Previous = newNode;
+                return;
+            }
+            current = current.Next;
+        }
     }
 
     public void Remove(T data)
@@ -83,14 +121,45 @@ public class DoubleLinkedList<T> : ILinkedList<T>
         }
     }
 
+    public void RemoveAll(T data)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Reverse()
     {
         throw new NotImplementedException();
     }
 
-    public void Sort()
+    public void SortDescending()
     {
-        throw new NotImplementedException();
+        // If the list is empty or has only one element, it's already sorted
+        if (_head == null || _head.Next == null)
+        {
+            return;
+        }
+
+        Node<T>? current = _head;
+        Node<T>? temp = null;
+
+        // Traverse the list and swap next and previous pointers
+        while (current != null)
+        {
+            // Swap the next and previous pointers
+            temp = current.Previous;
+            current.Previous = current.Next;
+            current.Next = temp;
+
+            // Move to the next node which is the previous node before swapping, the next node is 'current.Previous' after the swap
+            current = current.Previous;
+        }
+
+        // Finally, adjust the head and tail pointers
+        if (temp != null)        
+        {
+            _tail = _head;
+            _head = temp.Previous;
+        }
     }
 
     override public string ToString()

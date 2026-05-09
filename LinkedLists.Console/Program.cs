@@ -1,7 +1,6 @@
 ﻿using DoubleList;
 using SimpleList;
 
-//var list = new SinglyLinkedList<string>();
 var list = new DoubleLinkedList<string>();
 var option = string.Empty;
 var value = string.Empty;
@@ -13,16 +12,35 @@ do
         case "1":
             Console.Write("Enter a value: ");
             value = Console.ReadLine() ?? string.Empty;
-            list.InsertAtBeginning(value);
+            list.InsertOrdered(value);
             break;
-
         case "2":
-            Console.Write("Enter a value: ");
-            value = Console.ReadLine() ?? string.Empty;
-            list.InsertAtEnding(value);
+            Console.WriteLine(list);
             break;
-
         case "3":
+            Console.WriteLine(list.ToStringReverse());
+            break;
+        case "4":
+            list.SortDescending();
+            break;
+        // case "5":
+        //     var modes = list.GetModes();
+        //     if (modes.Count == 0)
+        //     {
+        //         Console.WriteLine("No modes found.");
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("Modes:");
+        //         foreach (var mode in modes)                {
+        //             Console.WriteLine(mode);
+        //         }
+        //     }
+        //     break;
+        // case "6":
+        //     list.ShowGraph();
+        //     break;
+        case "7":
             Console.Write("Enter a value: ");
             value = Console.ReadLine() ?? string.Empty;
             var exists = list.Contains(value);
@@ -35,29 +53,19 @@ do
                 Console.WriteLine($"Value '{value}' not found in the list.");
             }
             break;
-
-        case "4":
+        case "8":
             Console.Write("Enter a value: ");
             value = Console.ReadLine() ?? string.Empty;
             list.Remove(value);
             break;
-
-        case "5":
-            list.Reverse();
-            break;
-
-        case "8":
-            Console.WriteLine(list.ToString());
-            break;
-
-        case "9":
-            Console.WriteLine(list.ToStringReverse());
-            break;
-
+        // case "9":
+        //     Console.Write("Enter a value: ");
+        //     value = Console.ReadLine() ?? string.Empty;
+        //     list.RemoveAll(value);
+        //     break;
         case "0":
             Console.WriteLine("Exiting...");
             break;
-
         default:
             Console.WriteLine("Invalid option. Please try again.");
             break;
@@ -66,15 +74,15 @@ do
 
 string Menu()
 {
-    Console.WriteLine("1. Insert at the beginning");
-    Console.WriteLine("2. Insert at the ending");
-    Console.WriteLine("3. Search for a value");
-    Console.WriteLine("4. Remove a value");
-    Console.WriteLine("5. Reverse list");
-    Console.WriteLine("6. Order list"); // Homework
-    Console.WriteLine("7. Insert ordered"); // Homework
-    Console.WriteLine("8. Show list");
-    Console.WriteLine("9. Show list in reverse");
+    Console.WriteLine("1. Insert in ascending order");
+    Console.WriteLine("2. Show list");
+    Console.WriteLine("3. Show list in descending order");
+    Console.WriteLine("4. Sort list descending");
+    Console.WriteLine("5. Show modes");
+    Console.WriteLine("6. Show graph");
+    Console.WriteLine("7. Search for a value");
+    Console.WriteLine("8. Remove an occurrence");
+    Console.WriteLine("9. Remove all occurrences");
     Console.WriteLine("0. Exit");
     Console.Write("Enter your option: ");
     return Console.ReadLine() ?? string.Empty;
