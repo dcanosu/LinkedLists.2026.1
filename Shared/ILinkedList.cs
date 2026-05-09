@@ -9,6 +9,8 @@ public interface ILinkedList<T>
     void Remove(T data);
     void RemoveAll(T data);
     void Reverse();
+    List<T> GetModes();
+    List<string> GetGraph();
     void SortDescending();
     string ToString();
 }

@@ -60,7 +60,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         }
 
         
-        if (data.CompareTo(_head.Data) < 0) 
+        if (data.CompareTo(_head.Data) <= 0) 
         {
             newNode.Next = _head;
             _head.Previous = newNode;
@@ -69,7 +69,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         }
 
         // Insert at the end
-        if (data.CompareTo(_tail!.Data) > 0)
+        if (data.CompareTo(_tail!.Data) >= 0)
         {
             _tail.Next = newNode;
             newNode.Previous = _tail;
@@ -81,7 +81,7 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         var current = _head;
         while (current != null)
         {
-            if (data.CompareTo(current.Data) < 0)
+            if (data.CompareTo(current.Data) <= 0)
             {
                 newNode.Next = current;
                 newNode.Previous = current.Previous;
@@ -129,6 +129,59 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
     public void Reverse()
     {
         throw new NotImplementedException();
+    }
+
+    public List<T> GetModes()
+    {
+        List<T> modes = new List<T>();
+
+        if (_head == null)
+        {
+            return modes;
+        }
+        
+        int Maxocurrences = 0;
+        int currentOcurrences = 0;
+
+        Node<T>? current = _head;
+        T? lastValue = _head.Data;
+
+        while (current != null)
+        {
+            // If the current value is the same as the last value, increment the occurrence count
+            if (current.Data!.Equals(lastValue))
+            {
+                currentOcurrences++;
+            }
+            else
+            {   // If the current value is different from the last value, check if the occurrence count of the last value is greater than the max occurrences found so far
+                if (currentOcurrences > Maxocurrences)
+                {
+                    Maxocurrences = currentOcurrences;
+                    modes.Clear();
+                    modes.Add(lastValue!);
+                }
+                else if (currentOcurrences == Maxocurrences && Maxocurrences > 0)
+                {
+                    modes.Add(lastValue!);
+                }
+                // Reset the occurrence count for the new value
+                lastValue = current.Data;
+                currentOcurrences = 1;
+            }
+            current = current.Next;
+        }
+        // After the loop, we need to check the last value one more time in case it is the mode
+        if (currentOcurrences > Maxocurrences)
+        {
+            modes.Clear();
+            modes.Add(lastValue!);
+        }
+        else if (currentOcurrences == Maxocurrences && Maxocurrences > 0)
+        {
+            modes.Add(lastValue!);
+        }
+        return modes;
     }
 
     public void SortDescending()
@@ -186,5 +239,49 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         }
         result += "null";
         return result;
+    }
+
+    public List<string> GetGraph()
+    {
+        // This method will create a graph representation of the list where each unique value is represented by a line of stars corresponding to its frequency in the list.
+        List<string> graph = new List<string>();
+
+        if (_head == null)
+        {
+            return graph;
+        }
+
+        Node<T>? current = _head;
+        T? lastValue = _head.Data;
+        int count = 0;
+
+        while (current != null)
+        {
+            if (current.Data!.Equals(lastValue))
+            {
+                count++;
+            }
+            else
+            {
+                string stars = "";
+                for (int i = 0; i < count; i++)
+                {
+                    stars += "*";
+                }
+                graph.Add($"{lastValue}: {stars}");
+
+                lastValue = current.Data;
+                count = 1;
+            }
+            current = current.Next;
+        }
+        // Print the last value
+        string finalStarts = "";
+        for (int i = 0; i < count; i++)        
+        {
+            finalStarts += "*";
+        }
+        graph.Add($"{lastValue}: {finalStarts}");
+        return graph;
     }
 }

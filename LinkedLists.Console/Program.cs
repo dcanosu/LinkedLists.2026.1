@@ -23,23 +23,35 @@ do
         case "4":
             list.SortDescending();
             break;
-        // case "5":
-        //     var modes = list.GetModes();
-        //     if (modes.Count == 0)
-        //     {
-        //         Console.WriteLine("No modes found.");
-        //     }
-        //     else
-        //     {
-        //         Console.WriteLine("Modes:");
-        //         foreach (var mode in modes)                {
-        //             Console.WriteLine(mode);
-        //         }
-        //     }
-        //     break;
-        // case "6":
-        //     list.ShowGraph();
-        //     break;
+        case "5":
+            var modes = list.GetModes();
+            if (modes.Count == 0)
+            {
+                Console.WriteLine("No modes found.");
+            }
+            else
+            {
+                foreach (var mode in modes)
+                {
+                    Console.WriteLine(mode);
+                }
+            }
+            break;
+        case "6":
+            List<string> graph = list.GetGraph();
+            if (graph.Count == 0)
+            {
+                Console.WriteLine("The list is empty.");
+            }
+            else
+            {                
+                Console.WriteLine("Graph:");
+                foreach (string line in graph)
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            break;
         case "7":
             Console.Write("Enter a value: ");
             value = Console.ReadLine() ?? string.Empty;

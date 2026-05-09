@@ -104,4 +104,24 @@ public class SinglyLinkedList<T> : ILinkedList<T>
     {
         throw new NotImplementedException();
     }
+
+    public void RemoveAll(T data)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<T> GetModes()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SortDescending()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<string> GetGraph()
+    {
+        throw new NotImplementedException();
+    }
 }
