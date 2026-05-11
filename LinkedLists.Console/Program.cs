@@ -2,6 +2,16 @@
 using SimpleList;
 
 var list = new DoubleLinkedList<string>();
+// foreach (var item in new[] { "1", "2", "3", "3", "2", "5", "6", "6", "6", "3", "6" })
+// {
+//     list.InsertOrdered(item);
+// }
+
+// foreach (var item in new[] { "1", "2", "3", "3", "2", "5", "6", "6", "6", "3"})
+// {
+//     list.InsertOrdered(item);
+// }
+
 var option = string.Empty;
 var value = string.Empty;
 var decorator = new string('-', 35);
