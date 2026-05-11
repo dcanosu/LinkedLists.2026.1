@@ -124,4 +124,9 @@ public class SinglyLinkedList<T> : ILinkedList<T>
     {
         throw new NotImplementedException();
     }
+
+    public bool IsEmpty()
+    {
+        throw new NotImplementedException();
+    }
 }

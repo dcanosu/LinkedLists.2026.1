@@ -112,12 +112,18 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
                 if (current == _head) // Found at the head
                 {
                     _head = _head.Next;
-                    _head!.Previous = null;
+                    if (_head != null)
+                        _head!.Previous = null;
+                    else
+                        _tail = null; // List is now empty
                 }
                 else if (current == _tail) // Found at the tail
                 {
                     _tail = _tail.Previous;
-                    _tail!.Next = null;
+                    if (_tail != null)
+                        _tail!.Next = null;
+                    else
+                        _head = null; // List is now empty
                 }
                 else // Found in the middle
                 {
@@ -304,5 +310,10 @@ public class DoubleLinkedList<T> : ILinkedList<T> where T : IComparable<T>
         }
         graph.Add($"{lastValue}: {finalStarts}");
         return graph;
+    }
+
+    public bool IsEmpty()
+    {
+        return _head == null;
     }
 }
